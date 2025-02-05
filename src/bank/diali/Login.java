@@ -97,7 +97,18 @@ public class Login extends JFrame implements ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
+        try {
+            if (e.getSource() == button1) {
 
+            } else if (e.getSource() == button2) {
+                textField2.setText("");
+                passwordField3.setText("");
+            } else if (e.getSource() == button3) {
+
+            }
+        } catch (Exception exception){
+            exception.printStackTrace();
+        }
     }
 
     public static void main(String[] args) {
