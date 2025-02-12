@@ -6,6 +6,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.sql.Connection;
 import java.util.Random;
 
 public class SignUp extends JFrame implements ActionListener {
@@ -192,6 +193,41 @@ public class SignUp extends JFrame implements ActionListener {
         String formno = first;
         String name = textName.getText();
         String fname = textFname.getText();
+        String dob = ((JTextField) dateChooser.getDateEditor().getUiComponent()).getText();
+        String gender = null;
+        if (r1.isSelected()) {
+            gender = "Male";
+        } else if (r2.isSelected()) {
+            gender = "Female";
+        }
+
+        String email = textEmail.getText();
+
+        String marital = null;
+        if (m1.isSelected()) {
+            marital = "Married";
+        } else if (m2.isSelected()) {
+           marital = "Unmarried";
+        } else if (m3.isSelected()) {
+            marital = "Other";
+        }
+
+        String address = textAdd.getText();
+        String city = textCity.getText();
+        String pinCode = textPin.getText();
+        String state = textState.getText();
+
+        try {
+            if (textName.getText().equals("")){
+                JOptionPane.showMessageDialog(null, "Fill all the fields");
+            } else {
+                ConnectionToDB con1 = new ConnectionToDB();
+                String q = "insert into signup values('"+formno+"', '"+name+"', '"+fname+"', '"+dob+"', '"+gender+"', '"+email+"', '"+marital+"', '"+address+"', '"+city+"', '"+pinCode+"', '"+state+"',)";
+                con1.statement.executeUpdate(q);
+            }
+        } catch (Exception E) {
+            E.printStackTrace();
+        }
 
     }
 
