@@ -1,8 +1,6 @@
 package bank.diali;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.Statement;
+import java.sql.*;
 
 public class ConnectionToDB {
     Connection connection;
@@ -11,7 +9,7 @@ public class ConnectionToDB {
     public ConnectionToDB() {
         try {
             // Update the database URL, username, and password
-            String url = "jdbc:mysql://localhost:3306/bank_diali";  // Change localhost to your MySQL host if needed
+            String url = "jdbc:mysql://localhost:3306/db_bank_diali";  // Change localhost to your MySQL host if needed
             String username = "root";  // Change with your MySQL username
             String password = "";  // Change with your MySQL password
 

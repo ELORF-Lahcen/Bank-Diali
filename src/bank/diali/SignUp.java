@@ -12,7 +12,7 @@ import java.util.Random;
 public class SignUp extends JFrame implements ActionListener {
     JRadioButton r1, r2, m1, m2, m3;
     JButton next;
-    JTextField textName, textFname, textEmail, textAdd, textCity, textPin, textState;
+    JTextField textFname, textLname, textEmail, textAdd, textCity, textPin, textState;
     JDateChooser dateChooser;
     Random ran = new Random();
     long first4 = (ran.nextLong() % 9000L) + 1000L;
@@ -43,25 +43,25 @@ public class SignUp extends JFrame implements ActionListener {
         label3.setBounds(290, 90, 600, 30);
         add(label3);
 
-        JLabel labelName = new JLabel("Name :");
-        labelName.setFont(new Font("Raleway", Font.BOLD, 20));
-        labelName.setBounds(100, 140, 100,30);
-        add(labelName);
-
-        textName = new JTextField();
-        textName.setFont(new Font("Raleway", Font.BOLD, 14));
-        textName.setBounds(300, 140, 400, 30);
-        add(textName);
-
-        JLabel labelfName = new JLabel("Father's Name :");
-        labelfName.setFont(new Font("Raleway", Font.BOLD, 20));
-        labelfName.setBounds(100, 190, 200,30);
-        add(labelfName);
+        JLabel labelFname = new JLabel("First Name :");
+        labelFname.setFont(new Font("Raleway", Font.BOLD, 20));
+        labelFname.setBounds(100, 140, 120,30);
+        add(labelFname);
 
         textFname = new JTextField();
         textFname.setFont(new Font("Raleway", Font.BOLD, 14));
-        textFname.setBounds(300, 190, 400, 30);
+        textFname.setBounds(300, 140, 400, 30);
         add(textFname);
+
+        JLabel labelLname = new JLabel("Last Name :");
+        labelLname.setFont(new Font("Raleway", Font.BOLD, 20));
+        labelLname.setBounds(100, 190, 200,30);
+        add(labelLname);
+
+        textLname = new JTextField();
+        textLname.setFont(new Font("Raleway", Font.BOLD, 14));
+        textLname.setBounds(300, 190, 400, 30);
+        add(textLname);
 
         JLabel labelG = new JLabel("Gender :");
         labelG.setFont(new Font("Raleway", Font.BOLD, 20));
@@ -191,8 +191,8 @@ public class SignUp extends JFrame implements ActionListener {
     public void actionPerformed(ActionEvent e) {
 
         String formno = first;
-        String name = textName.getText();
-        String fname = textFname.getText();
+        String firstName = textFname.getText();
+        String lastName = textLname.getText();
         String dob = ((JTextField) dateChooser.getDateEditor().getUiComponent()).getText();
         String gender = null;
         if (r1.isSelected()) {
@@ -218,12 +218,14 @@ public class SignUp extends JFrame implements ActionListener {
         String state = textState.getText();
 
         try {
-            if (textName.getText().equals("")){
+            if (textFname.getText().equals("")){
                 JOptionPane.showMessageDialog(null, "Fill all the fields");
             } else {
                 ConnectionToDB con1 = new ConnectionToDB();
-                String q = "insert into signup values('"+formno+"', '"+name+"', '"+fname+"', '"+dob+"', '"+gender+"', '"+email+"', '"+marital+"', '"+address+"', '"+city+"', '"+pinCode+"', '"+state+"',)";
+                String q = "insert into signup values('"+formno+"', '"+firstName+"', '"+lastName+"', '"+dob+"', '"+gender+"', '"+email+"', '"+marital+"', '"+address+"', '"+city+"', '"+pinCode+"', '"+state+"')";
                 con1.statement.executeUpdate(q);
+                new SignUp2(first);
+                setVisible(false);
             }
         } catch (Exception E) {
             E.printStackTrace();
